@@ -1,0 +1,8 @@
+name = "HybridStructs"
+uuid = "49057fa9-d513-5ef6-ae80-2dc68a70a2bd"
+version = "0.0.0"
+
+[deps]
+
+[compat]
+julia = "1"
