@@ -2,7 +2,7 @@
 
 `HybridStructs.jl` is a package that provides a simple way to create both mutable and immutable versions 
 of a struct from a single definition. This can be particularly useful when you want to switch between
-mutable and immutable implementations.
+mutable and immutable implementations without adding redundant code to define each version.
 
 ## Usage
 
@@ -43,8 +43,8 @@ julia> @update s2.y = 3.0
 S_Immut(1, 3.0, 3)
 ```
 
-Keep in mind that for an immutable type, the mutation actually implies the
-creation of a new instance as with [Accessors.jl](https://github.com/JuliaObjects/Accessors.jl) macros.
+Keep in mind that for an immutable type, the mutation actually involve the
+creation of a new instance as with [Accessors.jl](https://github.com/JuliaObjects/Accessors.jl).
 
 ## Contributing
 
