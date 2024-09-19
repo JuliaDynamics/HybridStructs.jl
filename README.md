@@ -22,7 +22,7 @@ This will generate:
 2. An immutable struct `S_Immut`;
 3. Constructors for `S` that can create either the mutable or immutable version.
 
-You can then create instances of your struct with
+It is then possible to create instances of the specified version with
 
 ```julia
 julia> s1 = S(1, 2, 3; mutable=true)
@@ -32,7 +32,8 @@ julia> s2 = S(1, 2, 3; mutable=false)
 S_Immut(1, 2.0, 3)
 ```
 
-You can also use a single macro to change both versions
+For ease of use it is also possible to use a macro to mutate both versions
+of a struct
 
 ```julia
 julia> @update s1.y = 1.0
@@ -41,6 +42,9 @@ S_Mut(1, 1.0, 3)
 julia> @update s2.y = 3.0
 S_Immut(1, 3.0, 3)
 ```
+
+Keep in mind that for an immutable type, the mutation actually implies the
+creation of a new instance as with [Accessors.jl](https://github.com/JuliaObjects/Accessors.jl) macros.
 
 ## Contributing
 
