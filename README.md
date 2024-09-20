@@ -12,9 +12,9 @@ mutable and immutable implementations without adding redundant code to define ea
 ```julia
 julia> using HybridStructs
 
-julia> @hybrid struct S
+julia> @hybrid struct S{Y}
            const x::Int
-           y::Float64
+           y::Y
            z
        end
 ```
@@ -29,21 +29,21 @@ It is then possible to create instances of the specified version:
 
 ```julia
 julia> s1 = S(1, 2, 3; mutable=true)
-S_Mut(1, 2.0, 3)
+S_Mut{Int}(1, 2, 3)
 
 julia> s2 = S(1, 2, 3; mutable=false)
-S_Immut(1, 2.0, 3)
+S_Immut{Int}(1, 2.0, 3)
 ```
 
 For ease of use it is also possible to use a macro to mutate both versions
 of a struct:
 
 ```julia
-julia> @update s1.y = 1.0
-S_Mut(1, 1.0, 3)
+julia> @update s1.y = 1
+S_Mut{Int}(1, 1, 3)
 
-julia> @update s2.y = 3.0
-S_Immut(1, 3.0, 3)
+julia> @update s2.y = 3
+S_Immut{Int}(1, 3, 3)
 ```
 
 Importantly, there are some catches to keep in mind:
