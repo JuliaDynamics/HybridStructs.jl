@@ -48,8 +48,9 @@ S_Immut(1, 3.0, 3)
 
 Importantly, there are some catches to keep in mind:
 
-- The constructors are backed by a struct of the same name (e.g `S` in the example above) which means
-  that you shouldn't dispatch on it. Use one of the versions of the structs or the abstract type instead;
+- The constructors are backed by a dummy struct of the same name (e.g `S` in the example above) which means
+  that it would be incorrect to dispatch on it. Use one of the versions of the structs or the abstract type
+  instead;
 - For an immutable type, the mutation actually involve thecreation of a new instance with
   [Accessors.jl](https://github.com/JuliaObjects/Accessors.jl).
 
