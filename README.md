@@ -18,8 +18,8 @@ julia> @hybrid struct S
 
 This will generate:
 
-1. A mutable struct `S_Mut`;
-2. An immutable struct `S_Immut`;
+1. An immutable struct `S_Immut`;
+2. A mutable struct `S_Mut`;
 3. Constructors for `S` that can create either the mutable or immutable version.
 
 It is then possible to create instances of the specified version with
@@ -43,8 +43,13 @@ julia> @update s2.y = 3.0
 S_Immut(1, 3.0, 3)
 ```
 
-Keep in mind that for an immutable type, the mutation actually involve the
-creation of a new instance as with [Accessors.jl](https://github.com/JuliaObjects/Accessors.jl).
+Importantly, there are some catches to keep in mind:
+
+- The constructors are backed by a struct of the same name (e.g `S` in the example above) which means
+  that you shouldn't dispatch on it. Use one of the versions of the structs or the abstract type instead;
+- For an immutable type, the mutation actually involve thecreation of a new instance with
+  [Accessors.jl](https://github.com/JuliaObjects/Accessors.jl).
+
 
 ## Contributing
 
