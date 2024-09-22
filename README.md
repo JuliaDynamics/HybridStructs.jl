@@ -4,8 +4,9 @@
 [![codecov](https://codecov.io/gh/Tortar/HybridStructs.jl/graph/badge.svg?token=F8W0MC53Z0)](https://codecov.io/gh/Tortar/HybridStructs.jl)
 
 This package provides a simple way to create both mutable and immutable versions 
-of a struct from a single definition. This can be particularly useful when you want to switch between
-mutable and immutable implementations without adding redundant code to define each version.
+of a struct from a single definition. This can be particularly useful when you want
+to switch between mutable and immutable implementations without adding redundant code
+to define each version.
 
 ## Usage
 
@@ -29,10 +30,10 @@ It is then possible to create instances of the specified version:
 
 ```julia
 julia> s1 = S(1, 2, 3.0; mutable=true)
-S_Mut{Int}(1, 2, 3)
+S_Mut{Int}(1, 2, 3.0)
 
 julia> s2 = S(1, 2, 3.0; mutable=false)
-S_Immut{Int}(1, 2.0, 3)
+S_Immut{Int}(1, 2.0, 3.0)
 ```
 
 For ease of use it is also possible to use a macro to mutate both versions
@@ -57,4 +58,4 @@ Importantly, there are some catches to keep in mind:
 
 ## Contributing
 
-Contributions to HybridStructs.jl are welcome! Please feel free to submit issues, pull requests, or suggestions to improve the package.
+Contributions are welcome! Please feel free to submit issues, pull requests, or suggestions to improve the package.
