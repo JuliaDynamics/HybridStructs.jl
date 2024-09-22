@@ -1,6 +1,6 @@
 name = "HybridStructs"
 uuid = "49057fa9-d513-5ef6-ae80-2dc68a70a2bd"
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 Accessors = "7d9f7c33-5ae7-4f3b-8dc6-eff91059b697"
