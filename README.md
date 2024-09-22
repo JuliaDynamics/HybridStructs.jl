@@ -15,7 +15,7 @@ julia> using HybridStructs
 julia> @hybrid struct S{Y}
            const x::Int
            y::Y
-           z
+           z::Float64
        end
 ```
 
@@ -28,10 +28,10 @@ This will generate:
 It is then possible to create instances of the specified version:
 
 ```julia
-julia> s1 = S(1, 2, 3; mutable=true)
+julia> s1 = S(1, 2, 3.0; mutable=true)
 S_Mut{Int}(1, 2, 3)
 
-julia> s2 = S(1, 2, 3; mutable=false)
+julia> s2 = S(1, 2, 3.0; mutable=false)
 S_Immut{Int}(1, 2.0, 3)
 ```
 
@@ -40,10 +40,10 @@ of a struct:
 
 ```julia
 julia> @update s1.y = 1
-S_Mut{Int}(1, 1, 3)
+S_Mut{Int}(1, 1, 3.0)
 
 julia> @update s2.y = 3
-S_Immut{Int}(1, 3, 3)
+S_Immut{Int}(1, 3, 3.0)
 ```
 
 Importantly, there are some catches to keep in mind:
