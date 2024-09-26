@@ -16,7 +16,7 @@ using PrecompileTools
 		      function B(x::X, y, z) where X
 		          return new{X}(x, y, z)
 		      end
-		  end)
-        )
+		  end))
+        Accessors.setmacro(identity, :(a.x = 1), overwrite=true)
     end
 end

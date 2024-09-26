@@ -69,40 +69,16 @@ function _hybrid(expr)
         end
     end
 
-    struct_dummy = :(struct $struct_type <: $abstract_type 1 === 1 end)
-
-    struct_constructors = [
-            :(Base.@constprop :aggressive function $struct_name(args::Vararg{Any, _N_HY}; 
-                    mutable=false) where {_N_HY}
-                if mutable
-                    return $struct_name_mut(args...)
-                else
-                    return $struct_name_immut(args...)
-                end
-            end)]
-
-    if !isempty(type_params)
-        push!(struct_constructors,
-            :(Base.@constprop :aggressive function $struct_type(args::Vararg{Any, _N_HY};
-                    mutable=false) where {$(type_params...), _N_HY}
-                if mutable 
-                    return $struct_name_mut{$(type_params...)}(args...)
-                else
-                    return $struct_name_immut{$(type_params...)}(args...)
-                end
-            end)
-        )
-    end
+    union_struct = :(const $struct_name = Union{$struct_name_mut, $struct_name_immut})
 
     return quote
-        $struct_dummy
         if !(@isdefined $abstract_struct_name_mut) && $(namify(abstract_type)) != Any
             abstract type $abstract_struct_mut <: $abstract_type end
             abstract type $abstract_struct_immut <: $abstract_type end
         end
         $struct_mut
         $struct_immut
-        $(struct_constructors...)
+        $union_struct
         nothing
     end
 end
@@ -114,7 +90,7 @@ macro update(e)
             $e
             $s
         else
-            $HybridStructs.Accessors.@reset $e
+            HybridStructs.Accessors.@reset $e
         end
     end)
 end
