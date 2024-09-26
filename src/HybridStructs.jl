@@ -77,10 +77,6 @@ function _hybrid(expr)
     end
 
     return quote
-        if !(@isdefined $abstract_struct_name_mut) && $(namify(abstract_type)) != Any
-            abstract type $abstract_struct_mut <: $abstract_type end
-            abstract type $abstract_struct_immut <: $abstract_type end
-        end
         $struct_mut
         $struct_immut
         $union_struct
