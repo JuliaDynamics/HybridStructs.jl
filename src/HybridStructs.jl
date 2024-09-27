@@ -42,8 +42,13 @@ function _hybrid(expr)
     abstract_struct_name_mut = Symbol(abstract_struct_name, :_Mut)
     abstract_struct_name_immut = Symbol(abstract_struct_name, :_Immut)
 
-    abstract_struct_mut = abstract_type == :(Any) ? :(Any) : (:($abstract_struct_name_mut{$(abstract_type_params...)}))
-    abstract_struct_immut = abstract_type == :(Any) ? :(Any) : (:($abstract_struct_name_immut{$(abstract_type_params...)}))
+    if abstract_type_params == []
+        abstract_struct_mut = abstract_type == :(Any) ? :(Any) : (:($abstract_struct_name_mut))
+        abstract_struct_immut = abstract_type == :(Any) ? :(Any) : (:($abstract_struct_name_immut))
+    else
+        abstract_struct_mut = abstract_type == :(Any) ? :(Any) : (:($abstract_struct_name_mut{$(abstract_type_params...)}))
+        abstract_struct_immut = abstract_type == :(Any) ? :(Any) : (:($abstract_struct_name_immut{$(abstract_type_params...)}))
+    end
 
     struct_mut = :(mutable struct $struct_name_mut{$(type_params...)} <: $abstract_struct_mut
                        $(expr.args[3].args...)
