@@ -69,7 +69,11 @@ function _hybrid(expr)
         end
     end
 
-    union_struct = :(const $struct_name = Union{$struct_name_mut, $struct_name_immut})
+    if type_params == []
+        union_struct = :(const $struct_name = Union{$struct_name_immut, $struct_name_mut})
+    else
+        union_struct = :(const $struct_name = Union{$struct_name_immut{$(type_params...)}, $struct_name_mut{$(type_params...)}} where {$(type_params...)})
+    end
 
     return quote
         if !(@isdefined $abstract_struct_name_mut) && $(namify(abstract_type)) != Any
