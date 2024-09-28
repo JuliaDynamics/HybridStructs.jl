@@ -10,23 +10,43 @@ to define each version.
 
 ## Usage
 
+A `@hybrid` macro can be attached to a struct definition to define the two version
+all at once:
+
 ```julia
 julia> using HybridStructs
 
-julia> @hybrid struct S{Y}
+julia> abstract type AbstractS{Y} end
+
+julia> @hybrid struct S{Y} <: AbstractS{Y}
            const x::Int
            y::Y
            z::Float64
        end
 ```
 
-This will generate:
+which in this case it generates:
 
-1. An immutable struct `S_Immut`;
-2. A mutable struct `S_Mut`;
-3. `const S = Union{S_Immut{Y}, S_Mut{Y}} where Y`.
+```julia
+abstract type AbstractS_Mut{Y} <: AbstractS{Y} end
+abstract type AbstractS_Immut{Y} <: AbstractS{Y} end
 
-It is then possible to create instances of the specified version:
+mutable struct S_Mut{Y} <: AbstractS_Mut{Y}
+    const x::Int
+    y::Y
+    z::Float64
+end
+
+struct S_Immut{Y} <: AbstractS_Immut{Y}
+    x::Int
+    y::Y
+    z::Float64
+end
+
+const S = Union{S_Immut{Y}, S_Mut{Y}} where Y
+```
+
+It is then possible to create instances of the specified version with
 
 ```julia
 julia> s1 = S_Mut(1, 2, 3.0)
