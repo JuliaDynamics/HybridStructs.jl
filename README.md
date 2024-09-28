@@ -1,7 +1,7 @@
 # HybridStructs.jl
 
-[![CI](https://github.com/Tortar/HybridStructs.jl/workflows/CI/badge.svg)](https://github.com/Tortar/HybridStructs.jl/actions?query=workflow%3ACI)
-[![codecov](https://codecov.io/gh/Tortar/HybridStructs.jl/graph/badge.svg?token=F8W0MC53Z0)](https://codecov.io/gh/Tortar/HybridStructs.jl)
+[![CI](https://github.com/JuliaDynamics/HybridStructs.jl/workflows/CI/badge.svg)](https://github.com/JuliaDynamics/HybridStructs.jl/actions?query=workflow%3ACI)
+[![codecov](https://codecov.io/gh/JuliaDynamics/HybridStructs.jl/graph/badge.svg?token=F8W0MC53Z0)](https://codecov.io/gh/JuliaDynamics/HybridStructs.jl)
 
 This package provides a simple way to create both mutable and immutable versions 
 of a struct from a single definition. This can be particularly useful when you want
