@@ -8,14 +8,14 @@ end
 
 abstract type AbstractB{X} end
 
-@hybrid struct B{X} <: AbstractB{X}
+@hybrid struct B{X,Y} <: AbstractB{X}
 	x::X
-	y::Int
+	y::Y
 	const z
-	B{X}(x, y) where X = new{X}(x, y, 1)
-	B{X}(x, y, z) where X = new{X}(x, y, z)
-	function B(x::X, y, z) where X
-		return new{X}(x, y, z)
+	B{X,Y}(x, y) where {X,Y} = new{X}(x, y, 1)
+	B{X,Y}(x, y, z) where {X,Y} = new{X,Y}(x, y, z)
+	function B(x::X, y::Y, z) where {X,Y}
+		return new{X,Y}(x, y, z)
 	end
 end
 
@@ -37,8 +37,8 @@ end
     @test AbstractB_Mut <: AbstractB
 
     b1 = B_Immut(1, 2, :im)
-    b2 = B_Immut{Float64}(3, 2, 4.0)
-    b3 = B_Mut{Int}(3, 2, 4.0)
+    b2 = B_Immut{Float64, Int}(3, 2, 4.0)
+    b3 = B_Mut{Int, Int}(3, 2, 4.0)
 
     @test b1.x === 1
     @test b1 isa B_Immut{Int}
