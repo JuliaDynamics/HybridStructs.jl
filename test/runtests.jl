@@ -3,20 +3,20 @@ using Test
 using HybridStructs
 
 @hybrid struct A
-	x::Int
+    x::Int
 end
 
 abstract type AbstractB{X} end
 
 @hybrid struct B{X,Y} <: AbstractB{X}
-	x::X
-	y::Y
-	const z
-	B{X,Y}(x, y) where {X,Y} = new{X,Y}(x, y, 1)
-	B{X,Y}(x, y, z) where {X,Y} = new{X,Y}(x, y, z)
-	function B(x::X, y::Y, z) where {X,Y}
-		return new{X,Y}(x, y, z)
-	end
+    x::X
+    y::Y
+    const z
+    B{X,Y}(x, y) where {X,Y} = new{X,Y}(x, y, 1)
+    B{X,Y}(x, y, z) where {X,Y} = new{X,Y}(x, y, z)
+    function B(x::X, y::Y, z) where {X,Y}
+	return new{X,Y}(x, y, z)
+    end
 end
 
 @testset "HybridStructs.jl Tests" begin
