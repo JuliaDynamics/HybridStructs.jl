@@ -28,22 +28,23 @@ julia> @hybrid struct S{Y} <: AbstractS{Y}
 which in this case it generates:
 
 ```julia
-abstract type AbstractS_Mut{Y} <: AbstractS{Y} end
-abstract type AbstractS_Immut{Y} <: AbstractS{Y} end
+julia> abstract type AbstractS_Mut{Y} <: AbstractS{Y} end
 
-mutable struct S_Mut{Y} <: AbstractS_Mut{Y}
-    const x::Int
-    y::Y
-    z::Float64
-end
+julia> abstract type AbstractS_Immut{Y} <: AbstractS{Y} end
 
-struct S_Immut{Y} <: AbstractS_Immut{Y}
-    x::Int
-    y::Y
-    z::Float64
-end
+julia> mutable struct S_Mut{Y} <: AbstractS_Mut{Y}
+           const x::Int
+           y::Y
+           z::Float64
+       end
 
-const S = Union{S_Immut{Y}, S_Mut{Y}} where Y
+julia> struct S_Immut{Y} <: AbstractS_Immut{Y}
+           x::Int
+           y::Y
+           z::Float64
+       end
+
+julia> const S = Union{S_Immut{Y}, S_Mut{Y}} where Y
 ```
 
 It is then possible to create instances of the specified version with
